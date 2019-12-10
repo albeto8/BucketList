@@ -14,41 +14,28 @@ struct ContentView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [CodableMKPointAnnotation]()
     @State private var selectedPlace: MKPointAnnotation?
-    @State private var showingPlaceDetails = false
+    @State private var showingAlert = false
     @State private var showingEditScreen = false
     @State private var isUnlocked = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var loadSecondaryButton = true
+    
+    var renderAlert: Alert {
+        if self.loadSecondaryButton {
+            return Alert(title: Text(self.alertTitle), message: Text(self.alertMessage), primaryButton: .default(Text("OK")), secondaryButton: .default(Text("Edit")) {
+                self.showingEditScreen = true
+            })
+        }
+        return Alert(title: Text(self.alertTitle), message: Text(self.alertMessage), dismissButton: .default(Text("OK")) {
+            self.loadSecondaryButton = true
+        })
+    }
     
     var body: some View {
         ZStack {
             if self.isUnlocked {
-                MapView(centerCoordinate: $centerCoordinate, selectedPlace: $selectedPlace, showingPlaceDetails: $showingPlaceDetails, annotations: locations)
-                    .edgesIgnoringSafeArea(.all)
-                Circle()
-                    .fill(Color.blue)
-                    .opacity(0.3)
-                    .frame(width: 32, height: 32)
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            let newLocation = CodableMKPointAnnotation()
-                            newLocation.title = "Example location"
-                            newLocation.coordinate = self.centerCoordinate
-                            self.locations.append(newLocation)
-                            self.selectedPlace = newLocation
-                            self.showingEditScreen = true
-                        }) {
-                            Image(systemName: "plus")
-                        }
-                        .padding()
-                        .background(Color.black.opacity(0.75))
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .clipShape(Circle())
-                        .padding(.trailing)
-                    }
-                }
+                MainScreenView(centerCoordinate: $centerCoordinate, locations: $locations, selectedPlace: $selectedPlace, showingPlaceDetails: $showingAlert, showingEditScreen: $showingEditScreen, alertTitle: $alertTitle, alertMessage: $alertMessage)
             } else {
                 Button("Unlock Places") {
                     self.authenticate()
@@ -59,10 +46,8 @@ struct ContentView: View {
                 .clipShape(Capsule())
             }
         }
-        .alert(isPresented: $showingPlaceDetails) {
-            Alert(title: Text(selectedPlace?.title ?? "Unknown"), message: Text(selectedPlace?.subtitle ?? "Missing place information."), primaryButton: .default(Text("OK")), secondaryButton: .default(Text("Edit")) {
-                self.showingEditScreen = true
-            })
+        .alert(isPresented: $showingAlert) {
+            self.renderAlert
         }
         .sheet(isPresented: $showingEditScreen, onDismiss: saveData) {
             if self.selectedPlace != nil {
@@ -112,11 +97,19 @@ struct ContentView: View {
                         self.isUnlocked = true
                     } else {
                         // error
+                        self.showingAlert = true
+                        self.alertTitle = "Error"
+                        self.alertMessage = "Could not authenticate"
+                        self.loadSecondaryButton = false
                     }
                 }
             }
         } else {
             // no biometrics
+            self.showingAlert = true
+            self.alertTitle = "Error"
+            self.alertMessage = "no biometrics on device"
+            self.loadSecondaryButton = false
         }
     }
 }

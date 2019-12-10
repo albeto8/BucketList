@@ -18,6 +18,7 @@
 		F2023B66239C524500872A7B /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2023B65239C524500872A7B /* EditView.swift */; };
 		F2023B68239C542700872A7B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2023B67239C542700872A7B /* Result.swift */; };
 		F2023B6D239DAA8A00872A7B /* MKPointAnnotation-Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2023B6C239DAA8A00872A7B /* MKPointAnnotation-Codable.swift */; };
+		F2E2AC94239F38EC00EAC216 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E2AC93239F38EC00EAC216 /* MainScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		F2023B65239C524500872A7B /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		F2023B67239C542700872A7B /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		F2023B6C239DAA8A00872A7B /* MKPointAnnotation-Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointAnnotation-Codable.swift"; sourceTree = "<group>"; };
+		F2E2AC93239F38EC00EAC216 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				F2023B4F239C4DF500872A7B /* ContentView.swift */,
 				F2023B61239C4E7E00872A7B /* MapView.swift */,
 				F2023B65239C524500872A7B /* EditView.swift */,
+				F2E2AC93239F38EC00EAC216 /* MainScreenView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2023B4C239C4DF500872A7B /* AppDelegate.swift in Sources */,
+				F2E2AC94239F38EC00EAC216 /* MainScreenView.swift in Sources */,
 				F2023B62239C4E7E00872A7B /* MapView.swift in Sources */,
 				F2023B66239C524500872A7B /* EditView.swift in Sources */,
 				F2023B4E239C4DF500872A7B /* SceneDelegate.swift in Sources */,
